@@ -1,0 +1,278 @@
+/* CONFIGURAÇÕES GERAIS */
+
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica&display=swap');
+
+.im-fell-dw-pica-regular {
+  font-family: "IM Fell DW Pica", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "IM Fell DW Pica";
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #252c32;
+    color: white;
+}
+
+
+/* TELA INICIAL */
+
+#tela-inicial {
+    width: 100%;
+    height: 100vh;
+
+    background-image: url("bg1.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* CONTEÚDO PRINCIPAL */
+
+.conteudo-inicial {
+    width: 90%;
+    max-width: 1200px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 80px;
+}
+
+/* TÍTULO */
+
+.titulo-jogo {
+    width: 55%;
+    margin-right: 70px;
+}
+
+.titulo-jogo img {
+    width: 100%;
+    height: auto;
+    display: block;
+        transition: transform 0.25s ease;
+}
+
+.titulo-jogo img:hover{
+    transform: translateX(-10px) scale(1.08);
+}
+
+/* MENU */
+
+.menu-lateral {
+    width: 20%;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    gap: 15px;
+}
+
+/* BOTÕES */
+
+.menu-lateral button {
+    width: 100%;
+
+    padding: 0;
+    border: none;
+    background: none;
+
+    cursor: pointer;
+
+    transition: transform 0.25s ease;
+}
+
+.menu-lateral button img {
+    width: 100%;
+    display: block;
+}
+
+/* ANIMAÇÃO */
+
+.menu-lateral button:hover {
+    transform: translateX(-10px) scale(1.08);
+}
+
+/* TELA DE IDENTIFICAÇÃO */
+
+#tela-identificacao {
+    width: 100%;
+    height: 100vh;
+
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+    gap: 20px;
+
+    background:
+        linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)),
+        url("bg1.jpg");
+
+    background-size: cover;
+    background-position: center;
+}
+
+#tela-identificacao p {
+    font-size: 25px;
+}
+
+#tela-identificacao button {
+    background: none;
+    font-family: "IM Fell DW Pica";
+    border: none;
+    color: rgb(255, 253, 250);
+    font-size: 20px;
+    transition: transform 0.25s ease;    
+}
+
+#tela-identificacao button:hover {
+    transform: translatey(-5px) scale(1.08);
+}
+
+#nomeJogador {
+    width: 280px;
+    padding: 14px;
+    border: 2px solid #b68c70;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+    color: #2a2b29;
+}
+
+/* TELA DO JOGO */
+
+#tela-jogo {
+    display: none;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.cenario {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+
+    background:
+        linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.65)),
+        url("./assets/fundo-escritorio.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    padding: 30px;
+}
+
+/* CAIXA DE DIÁLOGO */
+
+.dialogo {
+    background-color: rgba(30,35,40,0.92);
+    padding: 25px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 1100px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    color: white;
+}
+
+.dialogo h2 {
+    color: #d2a889;
+    margin-bottom: 12px;
+}
+
+.dialogo p {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+/* FAIXA DE TRANSIÇÃO */
+
+#transicao {
+    position: fixed;
+    inset: 0;
+
+    background-color: #181817;
+
+    z-index: 9999;
+
+    /* Começa fora da tela */
+    transform: translateX(-110%) skewX(-15deg);
+
+    pointer-events: none;
+}
+
+/* ANIMAÇÃO DE ENTRADA */
+
+#transicao.ativar {
+    animation: cortinaEntrada 0.7s ease-in-out forwards;
+}
+
+@keyframes cortinaEntrada {
+
+    0% {
+        transform: translateX(-110%) skewX(-15deg);
+    }
+
+    100% {
+        transform: translateX(0) skewX(-15deg);
+    }
+
+}
+
+/* ANIMAÇÃO DE SAÍDA */
+
+#transicao.sair {
+    animation: cortinaSaida 0.7s ease-in-out forwards;
+}
+
+@keyframes cortinaSaida {
+
+    0% {
+        transform: translateX(0) skewX(-15deg);
+    }
+
+    100% {
+        transform: translateX(110%) skewX(-15deg);
+    }
+
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 600px) {
+    #tela-inicial h1 {
+        font-size: 30px;
+    }
+
+    .cenario {
+        padding: 15px;
+    }
+
+    .dialogo p {
+        font-size: 16px;
+    }
+}

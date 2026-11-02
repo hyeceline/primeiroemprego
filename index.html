@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Primeiro Emprego</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="transicao"></div>
+    <!-- TELA INICIAL -->
+    <section id="tela-inicial">
+
+        <!-- Título do jogo -->
+        <div class="titulo-jogo">
+            <img src="titulo.png" alt="Meu Primeiro Emprego">
+        </div>
+
+        <!-- Botões -->
+        <div class="menu-lateral">
+
+            <button onclick="irParaIdentificacao()">
+                <img src="botao-comecar.png" alt="Começar">
+            </button>
+
+            <button onclick="mostrarCreditos()">
+                <img src="botao-creditos.png" alt="Créditos">
+            </button>
+
+        </div>
+
+    </div>
+
+    </section>
+
+    <section id="tela-identificacao">
+
+    <img src="antes.png" width="400px">
+    <p>Como devemos chamar você?</p>
+
+    <input
+        type="text"
+        id="nomeJogador"
+        placeholder="Digite seu nome..."
+        maxlength="20"
+    >
+
+    <button onclick="comecarJogo()">
+        CONTINUAR
+    </button>
+
+</section>
+
+
+    <!-- TELA DO JOGO -->
+    <section id="tela-jogo">
+
+        <div class="cenario">
+            <h2>O começo de tudo...</h2>
+
+            <div class="dialogo">
+                <p id="texto">
+                    Era uma manhã de segunda-feira...
+                </p>
+
+                <button onclick="proximaCena()">
+                    CONTINUAR
+                </button>
+            </div>
+        </div>
+
+    </section>
+
+
+    <script src="main.js"></script>
+
+</body>
+</html>
