@@ -7,7 +7,12 @@ let cenaAtual = 0;
 let dialogos = [];
 
 
+/* =================================
+   FUNÇÃO DE TRANSIÇÃO
+================================= */
+
 function trocarTela(telaAtual, proximaTela) {
+
     const transicao = document.getElementById("transicao");
 
     transicao.style.pointerEvents = "auto";
@@ -15,6 +20,7 @@ function trocarTela(telaAtual, proximaTela) {
     transicao.classList.add("ativar");
 
     setTimeout(function() {
+
         document.getElementById(telaAtual).style.display = "none";
         document.getElementById(proximaTela).style.display = "flex";
 
@@ -22,8 +28,10 @@ function trocarTela(telaAtual, proximaTela) {
         transicao.classList.add("sair");
 
         setTimeout(function() {
+
             transicao.classList.remove("sair");
             transicao.style.pointerEvents = "none";
+
         }, 700);
 
     }, 700);
@@ -31,68 +39,53 @@ function trocarTela(telaAtual, proximaTela) {
 
 
 /* =================================
-   IR PARA A TELA DE IDENTIFICAÇÃO
+   TELA DE CRÉDITOS
+================================= */
+
+function mostrarCreditos() {
+    trocarTela("tela-inicial", "tela-creditos");
+}
+
+function voltarParaMenu() {
+    trocarTela("tela-creditos", "tela-inicial");
+}
+
+
+/* =================================
+   TELA DE IDENTIFICAÇÃO
 ================================= */
 
 function irParaIdentificacao() {
     trocarTela("tela-inicial", "tela-identificacao");
 }
 
+
 /* =================================
    COMEÇAR O JOGO
 ================================= */
 
 function comecarJogo() {
-
-    // Pega o nome digitado pelo jogador
-
     nomeJogador = document.getElementById("nomeJogador").value.trim();
 
-    // Verifica se o campo está vazio
-
     if (nomeJogador === "") {
-
         alert("Por favor, digite seu nome!");
-
         return;
-
     }
-    trocarTela("tela-identificacao", "tela-jogo");
-}
 
-    // Cria os diálogos personalizados
-
+    // Prepara os diálogos
     dialogos = [
-
         "Era uma manhã de segunda-feira. " + nomeJogador + " estava prestes a começar seu primeiro emprego.",
-
         "Depois de semanas procurando uma oportunidade, " + nomeJogador + " finalmente conseguiu uma entrevista na Aurora Comunicação.",
-
         "Ao chegar na empresa, " + nomeJogador + " foi recebido por uma funcionária chamada Marina.",
-
         "Marina: Olá, " + nomeJogador + "! Seja bem-vindo à equipe!"
-
     ];
 
-
-    // Esconde a tela de identificação
-
-    document.getElementById("tela-identificacao").style.display = "none";
-
-
-    // Mostra a tela do jogo
-
-    document.getElementById("tela-jogo").style.display = "block";
-
-
-    // Reinicia a história
-
     cenaAtual = 0;
-
-
-    // Mostra o primeiro diálogo
-
     mostrarDialogo();
+
+    // Faz a transição para a tela do jogo
+    trocarTela("tela-identificacao", "tela-jogo");
+}
 
 
 
