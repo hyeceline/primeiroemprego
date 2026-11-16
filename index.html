@@ -1,101 +1,98 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Primeiro Emprego</title>
-
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- ANIMAÇÃO DE TRANSIÇÃO -->
     <div id="transicao"></div>
 
-
-    <!-- TELA INICIAL -->
+    <!-- MENU INICIAL -->
     <section id="tela-inicial">
+        <div class="menu-conteudo">
+            <img class="titulo-jogo" src="titulo.png" alt="Meu Primeiro Emprego">
 
-        <div class="titulo-jogo">
-            <img src="titulo.png" alt="Meu Primeiro Emprego">
+            <div class="menu-botoes">
+                <button onclick="irParaIdentificacao()">
+                    <img src="botao-comecar.png" alt="Começar">
+                </button>
+
+                <button onclick="mostrarCreditos()">
+                    <img src="botao-creditos.png" alt="Créditos">
+                </button>
+            </div>
         </div>
-
-        <div class="menu-lateral">
-
-            <button onclick="irParaIdentificacao()">
-                <img src="botao-comecar.png" alt="Começar">
-            </button>
-
-            <button onclick="mostrarCreditos()">
-                <img src="botao-creditos.png" alt="Créditos">
-            </button>
-
-        </div>
-
     </section>
 
-
-    <!-- TELA DE IDENTIFICAÇÃO -->
+    <!-- IDENTIFICAÇÃO -->
     <section id="tela-identificacao">
+        <div class="identificacao-conteudo">
+            <img src="antes.png" alt="Antes de começar" class="imagem-identificacao">
 
-        <img src="antes.png" width="400" alt="Identificação">
+            <h1>Antes de começar...</h1>
+            <p>Como devemos chamar você?</p>
 
-        <p>Como devemos chamar você?</p>
+            <input
+                type="text"
+                id="nomeJogador"
+                placeholder="Digite seu nome..."
+                maxlength="20"
+            >
 
-        <input
-            type="text"
-            id="nomeJogador"
-            placeholder="Digite seu nome..."
-            maxlength="20"
-        >
-
-        <button onclick="comecarJogo()">
-            CONTINUAR
-        </button>
-
+            <button class="botao-principal" onclick="comecarJogo()">
+                CONTINUAR
+            </button>
+        </div>
     </section>
 
-
-    <!-- TELA DE CRÉDITOS -->
+    <!-- CRÉDITOS -->
     <section id="tela-creditos">
+        <div class="creditos-conteudo">
+            <h1>CRÉDITOS</h1>
 
-        <h1>Créditos</h1>
+            <p>Desenvolvido por:</p>
+            <p><strong>Anne e Sophia — 3ºJ</strong></p>
 
-        <p>
-            Desenvolvido por: <br>
-            <strong>Anne e Sophia 3ºJ, nº 6 e 38.</strong>
-        </p>
+            <p>
+                As imagens utilizadas são de terceiros.
+                Todos os créditos pertencem aos seus criadores originais.
+            </p>
 
-        <p>
-            Todas as imagens foram retiradas do Pinterest.
-            Os créditos vão para seus criadores originais.
-            Nenhuma dessas imagens é autoral.
-        </p>
-
-        <button onclick="voltarParaMenu()">
-            VOLTAR
-        </button>
-
+            <button class="botao-principal" onclick="voltarParaMenu()">
+                VOLTAR
+            </button>
+        </div>
     </section>
 
-
-    <!-- TELA DO JOGO -->
+    <!-- JOGO -->
     <section id="tela-jogo">
 
         <div class="cenario">
 
-            <h2>O começo de tudo...</h2>
+            <div class="informacoes">
+                <span id="numeroCena">DIA 01</span>
+                <span id="localCena">AURORA COMUNICAÇÃO</span>
+            </div>
+
+            <div class="personagem-area">
+                <div id="personagem" class="personagem">
+                    <span id="iconePersonagem">✦</span>
+                </div>
+            </div>
 
             <div class="dialogo">
 
-                <p id="texto">
-                    Era uma manhã de segunda-feira...
-                </p>
+                <h2 id="nomePersonagem">NARRADOR</h2>
 
-                <button onclick="proximaCena()">
+                <p id="texto"></p>
+
+                <div id="opcoes"></div>
+
+                <button id="botaoContinuar" onclick="continuarHistoria()">
                     CONTINUAR
                 </button>
 
@@ -105,9 +102,7 @@
 
     </section>
 
-
-    <!-- JAVASCRIPT -->
-    <script src="./main.js"></script>
+    <script src="main.js"></script>
 
 </body>
 </html>

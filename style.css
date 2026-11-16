@@ -1,302 +1,359 @@
-/* CONFIGURAÇÕES GERAIS */
-
-@import url('https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica&display=swap');
-
-.im-fell-dw-pica-regular {
-  font-family: "IM Fell DW Pica", serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap');
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "IM Fell DW Pica";
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #252c32;
+    font-family: 'Montserrat', sans-serif;
+    background: #171923;
     color: white;
+    overflow: hidden;
 }
 
+/* TELAS */
 
-/* TELA INICIAL */
-
-#tela-inicial {
+section {
     width: 100%;
     height: 100vh;
+}
 
-    background-image: url("bg1.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-
+#tela-inicial {
     display: flex;
     align-items: center;
     justify-content: center;
+    background: linear-gradient(135deg, #171923, #34213f);
 }
 
-/* CONTEÚDO PRINCIPAL */
-
-.conteudo-inicial {
-    width: 90%;
-    max-width: 1200px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    gap: 80px;
-}
-
-/* TÍTULO */
-
-.titulo-jogo {
-    width: 55%;
-    margin-right: 70px;
-}
-
-.titulo-jogo img {
-    width: 100%;
-    height: auto;
-    display: block;
-        transition: transform 0.25s ease;
-}
-
-.titulo-jogo img:hover{
-    transform: translateX(-10px) scale(1.08);
+#tela-identificacao,
+#tela-creditos,
+#tela-jogo {
+    display: none;
 }
 
 /* MENU */
 
-.menu-lateral {
-    width: 20%;
-
+.menu-conteudo {
     display: flex;
     flex-direction: column;
-
     align-items: center;
-    gap: 15px;
+    gap: 45px;
 }
 
-/* BOTÕES */
+.titulo-jogo {
+    width: min(80%, 600px);
+    object-fit: contain;
+}
 
-.menu-lateral button {
-    width: 100%;
+.menu-botoes {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
 
-    padding: 0;
-    border: none;
+.menu-botoes button {
     background: none;
-
+    border: none;
     cursor: pointer;
-
-    transition: transform 0.25s ease;
+    transition: transform 0.2s ease, filter 0.2s ease;
 }
 
-.menu-lateral button img {
-    width: 100%;
+.menu-botoes button:hover {
+    transform: scale(1.08);
+    filter: brightness(1.3);
+}
+
+.menu-botoes img {
+    width: 220px;
     display: block;
 }
 
-/* ANIMAÇÃO */
+/* IDENTIFICAÇÃO E CRÉDITOS */
 
-.menu-lateral button:hover {
-    transform: translateX(-10px) scale(1.08);
-}
-
-/* TELA DE IDENTIFICAÇÃO */
-
-#tela-identificacao {
-    width: 100%;
-    height: 100vh;
-
-    display: none;
-    flex-direction: column;
-    justify-content: center;
+#tela-identificacao,
+#tela-creditos {
     align-items: center;
-
+    justify-content: center;
+    background: linear-gradient(135deg, #25203d, #171923);
     text-align: center;
+}
+
+.identificacao-conteudo,
+.creditos-conteudo {
+    width: min(90%, 600px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 20px;
-
-    background:
-        linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)),
-        url("bg1.jpg");
-
-    background-size: cover;
-    background-position: center;
 }
 
-#tela-identificacao p {
-    font-size: 25px;
+.imagem-identificacao {
+    width: min(80%, 400px);
+    object-fit: contain;
 }
 
-#tela-identificacao button {
-    background: none;
-    font-family: "IM Fell DW Pica";
-    border: none;
-    color: rgb(255, 253, 250);
-    font-size: 20px;
-    transition: transform 0.25s ease;    
+.identificacao-conteudo h1,
+.creditos-conteudo h1 {
+    color: #f2b84b;
+    font-size: 30px;
+    font-weight: 900;
 }
 
-#tela-identificacao button:hover {
-    transform: translatey(-5px) scale(1.08);
+.identificacao-conteudo p,
+.creditos-conteudo p {
+    line-height: 1.6;
 }
 
 #nomeJogador {
-    width: 280px;
-    padding: 14px;
-    border: 2px solid #b68c70;
+    width: 100%;
+    max-width: 350px;
+    padding: 15px;
+    border: 2px solid #f2b84b;
     border-radius: 8px;
+    background: #222433;
+    color: white;
     font-size: 16px;
     outline: none;
-    color: #2a2b29;
 }
 
-/* TELA DE CRÉDITOS */
-
-#tela-creditos {
-    width: 100%;
-    height: 100vh;
-
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    text-align: center;
-    gap: 20px;
-
-    background:
-        linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7));
-
-    background-size: cover;
-    background-position: center;9
+.botao-principal {
+    padding: 14px 30px;
+    background: #f2b84b;
+    color: #171923;
+    border: none;
+    border-radius: 6px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: 0.2s;
 }
 
-#tela-creditos p {
-    font-size: 25px;
+.botao-principal:hover {
+    background: white;
+    transform: scale(1.05);
 }
 
-/* TELA DO JOGO */
+/* CENÁRIO DO JOGO */
 
 #tela-jogo {
-    display: none;
     width: 100%;
     height: 100vh;
-    overflow: hidden;
 }
 
 .cenario {
     width: 100%;
     height: 100%;
-    box-sizing: border-box;
+    padding: 25px 35px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     background:
-        linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.65));
+        linear-gradient(rgba(15, 15, 25, 0.15), rgba(15, 15, 25, 0.75)),
+        url("./assets/fundo-escritorio.jpg");
 
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
+}
 
+/* INFORMAÇÕES SUPERIORES */
+
+.informacoes {
     display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #f2b84b;
+}
 
-    padding: 30px;
+/* PERSONAGEM */
+
+.personagem-area {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.personagem {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: #f2b84b;
+    color: #171923;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 65px;
+    font-weight: 900;
+    box-shadow: 0 0 35px rgba(242, 184, 75, 0.4);
+    animation: aparecer 0.5s ease;
+}
+
+.personagem.marina {
+    background: #e88ca7;
+    box-shadow: 0 0 35px rgba(232, 140, 167, 0.4);
+}
+
+.personagem.renata {
+    background: #83b8dc;
+    box-shadow: 0 0 35px rgba(131, 184, 220, 0.4);
+}
+
+.personagem.narrador {
+    background: #f2b84b;
 }
 
 /* CAIXA DE DIÁLOGO */
 
 .dialogo {
-    background-color: rgba(30,35,40,0.92);
-    padding: 25px;
-    border-radius: 12px;
     width: 100%;
     max-width: 1100px;
-    box-sizing: border-box;
     margin: 0 auto;
-    color: white;
+    padding: 25px 30px;
+    background: rgba(20, 22, 35, 0.96);
+    border-left: 7px solid #f2b84b;
+    border-radius: 8px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.4);
 }
 
 .dialogo h2 {
-    color: #d2a889;
+    color: #f2b84b;
+    font-size: 17px;
+    font-weight: 900;
     margin-bottom: 12px;
+    letter-spacing: 2px;
 }
 
 .dialogo p {
-    font-size: 23px;
-    line-height: 1.5;
-    margin-bottom: 20px;
+    font-size: 16px;
+    line-height: 1.7;
+    min-height: 50px;
+    margin-bottom: 18px;
 }
 
-/* FAIXA DE TRANSIÇÃO */
+/* BOTÕES DE ESCOLHA */
+
+#opcoes {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#opcoes button {
+    padding: 13px 16px;
+    background: #34364a;
+    color: white;
+    border: 1px solid #77758c;
+    border-left: 5px solid #e88ca7;
+    border-radius: 5px;
+    text-align: left;
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#opcoes button:hover {
+    background: #f2b84b;
+    color: #171923;
+    border-color: #f2b84b;
+    transform: translateX(8px);
+}
+
+/* CONTINUAR */
+
+#botaoContinuar {
+    display: block;
+    margin-left: auto;
+    margin-top: 15px;
+    padding: 12px 25px;
+    background: #f2b84b;
+    color: #171923;
+    border: none;
+    border-radius: 5px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#botaoContinuar:hover {
+    background: white;
+    transform: scale(1.05);
+}
+
+.escondido {
+    display: none !important;
+}
+
+/* TRANSIÇÃO */
 
 #transicao {
     position: fixed;
     inset: 0;
-
-    background-color: #181817;
-
+    width: 100%;
+    height: 100%;
+    background: #f2b84b;
     z-index: 9999;
-
-    /* Começa fora da tela */
-    transform: translateX(-110%) skewX(-15deg);
-
     pointer-events: none;
+    transform: scaleX(0);
+    transform-origin: left;
 }
-
-/* ANIMAÇÃO DE ENTRADA */
 
 #transicao.ativar {
-    animation: cortinaEntrada 0.7s ease-in-out forwards;
+    transform: scaleX(1);
+    transition: transform 0.7s ease-in-out;
 }
-
-@keyframes cortinaEntrada {
-
-    0% {
-        transform: translateX(-110%) skewX(-15deg);
-    }
-
-    100% {
-        transform: translateX(0) skewX(-15deg);
-    }
-
-}
-
-/* ANIMAÇÃO DE SAÍDA */
 
 #transicao.sair {
-    animation: cortinaSaida 0.7s ease-in-out forwards;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.7s ease-in-out;
 }
 
-@keyframes cortinaSaida {
+/* ANIMAÇÃO */
 
-    0% {
-        transform: translateX(0) skewX(-15deg);
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(25px) scale(0.9);
     }
 
-    100% {
-        transform: translateX(110%) skewX(-15deg);
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
     }
-
 }
 
-/* RESPONSIVIDADE */
+/* CELULAR */
 
 @media (max-width: 600px) {
-    #tela-inicial h1 {
-        font-size: 30px;
-    }
-
     .cenario {
         padding: 15px;
     }
 
+    .personagem {
+        width: 110px;
+        height: 110px;
+        font-size: 48px;
+    }
+
+    .dialogo {
+        padding: 18px;
+    }
+
     .dialogo p {
-        font-size: 16px;
+        font-size: 14px;
+    }
+
+    #opcoes button {
+        font-size: 12px;
+        padding: 12px;
+    }
+
+    .informacoes {
+        font-size: 9px;
     }
 }

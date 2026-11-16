@@ -1,18 +1,25 @@
 /* =================================
-   VARIÁVEIS DO JOGO
+   VARIÁVEIS
 ================================= */
 
 let nomeJogador = "";
 let cenaAtual = 0;
-let dialogos = [];
+
+let pontos = {
+    comunicacao: 0,
+    iniciativa: 0,
+    equipe: 0,
+    honestidade: 0
+};
+
+let escolhaAnterior = "";
 
 
 /* =================================
-   FUNÇÃO DE TRANSIÇÃO
+   TRANSIÇÃO
 ================================= */
 
 function trocarTela(telaAtual, proximaTela) {
-
     const transicao = document.getElementById("transicao");
 
     transicao.style.pointerEvents = "auto";
@@ -20,7 +27,6 @@ function trocarTela(telaAtual, proximaTela) {
     transicao.classList.add("ativar");
 
     setTimeout(function() {
-
         document.getElementById(telaAtual).style.display = "none";
         document.getElementById(proximaTela).style.display = "flex";
 
@@ -28,10 +34,8 @@ function trocarTela(telaAtual, proximaTela) {
         transicao.classList.add("sair");
 
         setTimeout(function() {
-
             transicao.classList.remove("sair");
             transicao.style.pointerEvents = "none";
-
         }, 700);
 
     }, 700);
@@ -39,29 +43,27 @@ function trocarTela(telaAtual, proximaTela) {
 
 
 /* =================================
-   TELA DE CRÉDITOS
-================================= */
-
-function mostrarCreditos() {
-    trocarTela("tela-inicial", "tela-creditos");
-}
-
-function voltarParaMenu() {
-    trocarTela("tela-creditos", "tela-inicial");
-}
-
-
-/* =================================
-   TELA DE IDENTIFICAÇÃO
+   MENU
 ================================= */
 
 function irParaIdentificacao() {
-    trocarTela("tela-inicial", "tela-identificacao");
+    document.getElementById("tela-inicial").style.display = "none";
+    document.getElementById("tela-identificacao").style.display = "flex";
+}
+
+function mostrarCreditos() {
+    document.getElementById("tela-inicial").style.display = "none";
+    document.getElementById("tela-creditos").style.display = "flex";
+}
+
+function voltarParaMenu() {
+    document.getElementById("tela-creditos").style.display = "none";
+    document.getElementById("tela-inicial").style.display = "flex";
 }
 
 
 /* =================================
-   COMEÇAR O JOGO
+   COMEÇAR JOGO
 ================================= */
 
 function comecarJogo() {
@@ -72,51 +74,386 @@ function comecarJogo() {
         return;
     }
 
-    // Prepara os diálogos
-    dialogos = [
-        "Era uma manhã de segunda-feira. " + nomeJogador + " estava prestes a começar seu primeiro emprego.",
-        "Depois de semanas procurando uma oportunidade, " + nomeJogador + " finalmente conseguiu uma entrevista na Aurora Comunicação.",
-        "Ao chegar na empresa, " + nomeJogador + " foi recebido por uma funcionária chamada Marina.",
-        "Marina: Olá, " + nomeJogador + "! Seja bem-vindo à equipe!"
-    ];
-
     cenaAtual = 0;
-    mostrarDialogo();
 
-    // Faz a transição para a tela do jogo
+    pontos = {
+        comunicacao: 0,
+        iniciativa: 0,
+        equipe: 0,
+        honestidade: 0
+    };
+
+    mostrarCena();
     trocarTela("tela-identificacao", "tela-jogo");
 }
 
 
-
 /* =================================
-   MOSTRAR DIÁLOGOS
+   HISTÓRIA
 ================================= */
 
-function mostrarDialogo() {
+const cenas = [
 
-    document.getElementById("texto").textContent = dialogos[cenaAtual];
+    // CENA 0 — INTRODUÇÃO
+    {
+        personagem: "NARRADOR",
+        icone: "✦",
+        classe: "narrador",
+        local: "SEGUNDA-FEIRA — 08:00",
 
+        texto:
+        "Era uma manhã de segunda-feira. Depois de semanas procurando uma oportunidade, {nome} finalmente havia conseguido seu primeiro emprego na Aurora Comunicação, uma agência de publicidade conhecida por seus projetos criativos. Nervoso, mas animado, {nome} atravessou a porta da empresa sem imaginar o que aquele dia reservaria.",
+
+        continuar: true
+    },
+
+
+    // CENA 1 — PRIMEIRA DECISÃO
+    {
+        personagem: "MARINA",
+        icone: "M",
+        classe: "marina",
+        local: "RECEPÇÃO",
+
+        texto:
+        "Marina, responsável por orientar os novos funcionários, aproxima-se com uma pasta nas mãos. \"Oi! Você deve ser {nome}, certo? Seja bem-vindo! Hoje vamos começar com uma tarefa simples: ajudar a preparar uma apresentação para um cliente. Como prefere começar?\"",
+
+        opcoes: [
+
+            {
+                texto: "A) Pedir que Marina explique todos os detalhes.",
+                resultado:
+                "\"Claro! Não tenha vergonha de perguntar. É melhor esclarecer as dúvidas antes de começar\", responde Marina.",
+                pontos: { comunicacao: 2, honestidade: 1 }
+            },
+
+            {
+                texto: "B) Aceitar a tarefa e tentar resolver sozinho.",
+                resultado:
+                "\"Gosto dessa disposição! Só não se esqueça de pedir ajuda se precisar\", comenta Marina.",
+                pontos: { iniciativa: 2 }
+            },
+
+            {
+                texto: "C) Procurar um colega para fazer a tarefa em conjunto.",
+                resultado:
+                "\"Boa ideia! Trabalhar em equipe pode facilitar bastante as coisas\", diz Marina.",
+                pontos: { equipe: 2, comunicacao: 1 }
+            }
+
+        ]
+    },
+
+    // CENA 2 — SEGUNDA DECISÃO
+    {
+        personagem: "RENATA",
+        icone: "R",
+        classe: "renata",
+        local: "SALA DE CRIAÇÃO",
+
+        texto:
+        "Na sala de criação, {nome} conhece Renata, uma funcionária que trabalha na agência há alguns meses. Ela percebe que você está analisando os documentos da apresentação. \"Olha, acho que algumas informações estão faltando aqui. A gente precisa descobrir os dados corretos antes de enviar isso ao cliente. O que você acha que devemos fazer?\"",
+
+        opcoes: [
+
+            {
+                texto: "A) Pesquisar e conferir as informações antes de continuar.",
+                resultado:
+                "Renata concorda. \"Ótimo! Não podemos correr o risco de apresentar dados errados.\"",
+                pontos: { iniciativa: 1, honestidade: 2 }
+            },
+
+            {
+                texto: "B) Perguntar a Marina onde encontrar os dados.",
+                resultado:
+                "Marina indica os arquivos corretos e agradece por você ter perguntado antes de tomar uma decisão.",
+                pontos: { comunicacao: 2, honestidade: 1 }
+            },
+
+            {
+                texto: "C) Usar os dados disponíveis e deixar essa parte para depois.",
+                resultado:
+                "Renata fica um pouco preocupada. \"Espero que a gente consiga revisar isso a tempo...\"",
+                pontos: { iniciativa: 1 }
+            }
+
+        ]
+    },
+
+
+    // CENA 3 — TERCEIRA DECISÃO
+    {
+        personagem: "RENATA",
+        icone: "R",
+        classe: "renata",
+        local: "SALA DE REUNIÕES",
+
+        texto:
+        "Pouco antes da apresentação, Renata percebe que uma parte importante do material está diferente do que foi combinado. Ela parece bastante nervosa. \"Acho que cometi um erro na organização dos slides. Não sei se vamos conseguir terminar a tempo...\" Como você reage?",
+
+        opcoes: [
+
+            {
+                texto: "A) Oferecer ajuda para corrigir os slides.",
+                resultado:
+                "Renata respira aliviada. \"Obrigada! Eu estava precisando de uma mão.\" Vocês conseguem reorganizar o material juntos.",
+                pontos: { equipe: 2, comunicacao: 1 }
+            },
+
+            {
+                texto: "B) Avisar Marina imediatamente e explicar o problema.",
+                resultado:
+                "Marina agradece por ter sido avisada. Juntos, vocês encontram uma solução antes da reunião.",
+                pontos: { comunicacao: 1, honestidade: 2 }
+            },
+
+            {
+                texto: "C) Ignorar o problema e continuar com sua própria parte.",
+                resultado:
+                "Você continua trabalhando, mas percebe que Renata precisa resolver a situação sozinha.",
+                pontos: { iniciativa: 1 }
+            }
+
+        ]
+    },
+
+
+    // CENA 4 — QUARTA DECISÃO
+    {
+        personagem: "MARINA",
+        icone: "M",
+        classe: "marina",
+        local: "REUNIÃO COM O CLIENTE",
+
+        texto:
+        "A apresentação está prestes a começar. Marina se aproxima e pergunta: \"{nome}, percebi que algumas partes do projeto ainda precisam de ajustes. Como você acha que devemos lidar com isso durante a reunião?\" É o momento de mostrar o que você aprendeu no seu primeiro dia.",
+
+        opcoes: [
+
+            {
+                texto: "A) Ser transparente e explicar o que ainda precisa ser ajustado.",
+                resultado:
+                "\"Essa é uma atitude profissional. É importante manter a confiança do cliente\", responde Marina.",
+                pontos: { honestidade: 2, comunicacao: 1 }
+            },
+
+            {
+                texto: "B) Apresentar o trabalho mesmo com os problemas, sem comentar nada.",
+                resultado:
+                "Marina parece hesitante. \"Precisamos ter cuidado para não comprometer a confiança do cliente.\"",
+                pontos: { iniciativa: 1 }
+            },
+
+            {
+                texto: "C) Pedir ajuda à equipe para revisar tudo antes da apresentação.",
+                resultado:
+                "\"Excelente! Uma equipe que se comunica consegue encontrar soluções melhores\", diz Marina.",
+                pontos: { equipe: 2, comunicacao: 1 }
+            }
+
+        ]
+    }
+
+];
+
+
+/* =================================
+   MOSTRAR CENA
+================================= */
+
+function mostrarCena() {
+    const cena = cenas[cenaAtual];
+
+    document.getElementById("nomePersonagem").textContent =
+        cena.personagem;
+
+    document.getElementById("texto").textContent =
+        cena.texto.replaceAll("{nome}", nomeJogador);
+
+    document.getElementById("numeroCena").textContent =
+        "DIA 01 — CENA " + (cenaAtual + 1);
+
+    document.getElementById("localCena").textContent =
+        cena.local;
+
+    const personagem = document.getElementById("personagem");
+
+    personagem.className = "personagem " + cena.classe;
+
+    document.getElementById("iconePersonagem").textContent =
+        cena.icone;
+
+    const opcoes = document.getElementById("opcoes");
+    const botaoContinuar = document.getElementById("botaoContinuar");
+
+    opcoes.innerHTML = "";
+
+    if (cena.opcoes) {
+        botaoContinuar.classList.add("escondido");
+
+        cena.opcoes.forEach(function(opcao, indice) {
+            const botao = document.createElement("button");
+
+            botao.textContent = opcao.texto;
+
+            botao.onclick = function() {
+                selecionarOpcao(indice);
+            };
+
+            opcoes.appendChild(botao);
+        });
+
+    } else {
+        botaoContinuar.classList.remove("escondido");
+    }
 }
 
 
 /* =================================
-   AVANÇAR CENAS
+   SELECIONAR OPÇÃO
 ================================= */
 
-function proximaCena() {
+function selecionarOpcao(indice) {
+    const cena = cenas[cenaAtual];
+    const opcao = cena.opcoes[indice];
+
+    // Registra os pontos da escolha
+    for (let atributo in opcao.pontos) {
+        pontos[atributo] += opcao.pontos[atributo];
+    }
+
+    escolhaAnterior = opcao.resultado;
+
+    // Mostra a consequência da decisão
+    document.getElementById("nomePersonagem").textContent =
+        "CONSEQUÊNCIA";
+
+    document.getElementById("texto").textContent =
+        escolhaAnterior;
+
+    document.getElementById("opcoes").innerHTML = "";
+
+    const botaoContinuar = document.getElementById("botaoContinuar");
+
+    botaoContinuar.classList.remove("escondido");
+}
+
+
+/* =================================
+   AVANÇAR HISTÓRIA
+================================= */
+
+function continuarHistoria() {
+
+    // Depois da última decisão, mostrar o final
+    if (cenaAtual === cenas.length - 1) {
+        mostrarFinal();
+        return;
+    }
 
     cenaAtual++;
 
-    if (cenaAtual < dialogos.length) {
+    mostrarCena();
+}
 
-        mostrarDialogo();
+
+/* =================================
+   FINAIS
+================================= */
+
+function mostrarFinal() {
+
+    document.getElementById("nomePersonagem").textContent =
+        "FIM DO PRIMEIRO DIA";
+
+    document.getElementById("numeroCena").textContent =
+        "DIA 01 — ENCERRAMENTO";
+
+    document.getElementById("localCena").textContent =
+        "AURORA COMUNICAÇÃO";
+
+    document.getElementById("personagem").className =
+        "personagem narrador";
+
+    document.getElementById("iconePersonagem").textContent = "✦";
+
+    document.getElementById("opcoes").innerHTML = "";
+
+    document.getElementById("botaoContinuar").classList.add("escondido");
+
+    let tituloFinal = "";
+    let textoFinal = "";
+
+    const totalEquipe =
+        pontos.equipe + pontos.comunicacao + pontos.honestidade;
+
+    if (pontos.honestidade >= 3 && totalEquipe >= 6) {
+
+        tituloFinal = "FINAL 1 — UM BOM COMEÇO";
+
+        textoFinal =
+        "Ao final da reunião, Marina elogia sua postura e Renata agradece pela ajuda. Você demonstrou responsabilidade, empatia e capacidade de trabalhar em equipe. Seu primeiro dia termina com a sensação de que encontrou um lugar onde pode crescer. Talvez esse seja o início de uma grande trajetória profissional.";
+
+    } else if (pontos.iniciativa >= 3) {tituloFinal = "FINAL 2 — UM TALENTO EM DESENVOLVIMENTO";
+
+        textoFinal =
+        "Marina percebe sua disposição para enfrentar desafios e sua vontade de aprender. Embora algumas situações tenham sido difíceis, você mostrou iniciativa e independência. Ainda há muito a descobrir sobre o mundo do trabalho, mas uma coisa é certa: você não tem medo de tentar.";
 
     } else {
 
-        document.getElementById("texto").textContent =
-            nomeJogador + ", seu primeiro dia de trabalho está apenas começando!";
+        tituloFinal = "FINAL 3 — UMA LIÇÃO IMPORTANTE";
+
+        textoFinal =
+        "O primeiro dia não saiu exatamente como você imaginava. Algumas decisões poderiam ter sido diferentes, e você percebe que trabalhar envolve muito mais do que cumprir tarefas. Comunicação, responsabilidade e colaboração fazem diferença. Apesar dos obstáculos, amanhã será uma nova oportunidade para fazer melhor.";
 
     }
 
+    document.getElementById("nomePersonagem").textContent =
+        tituloFinal;
+
+    escreverTexto(textoFinal);
+
+    const botaoReiniciar = document.createElement("button");
+
+    botaoReiniciar.textContent = "JOGAR NOVAMENTE";
+    botaoReiniciar.className = "botao-principal";
+
+    botaoReiniciar.onclick = function() {
+        reiniciarJogo();
+    };
+
+    document.getElementById("opcoes").appendChild(botaoReiniciar);
+}
+
+
+/* =================================
+   TEXTO GRADUAL
+================================= */
+
+function escreverTexto(texto) {
+    const elemento = document.getElementById("texto");
+
+    elemento.textContent = texto;
+}
+
+
+/* =================================
+   REINICIAR
+================================= */
+
+function reiniciarJogo() {
+
+    document.getElementById("tela-jogo").style.display = "none";
+    document.getElementById("tela-inicial").style.display = "flex";
+
+    document.getElementById("nomeJogador").value = "";
+
+    cenaAtual = 0;
+
+    pontos = {
+        comunicacao: 0,
+        iniciativa: 0,
+        equipe: 0,
+        honestidade: 0
+    };
 }
