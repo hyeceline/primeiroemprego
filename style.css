@@ -153,19 +153,39 @@ section {
 }
 
 .cenario {
+    position: relative;
     width: 100%;
     height: 100%;
     padding: 25px 35px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    overflow: hidden; /* evita que o fundo "vaze" */
+}
 
-    background:
-        linear-gradient(rgba(15, 15, 25, 0.15), rgba(15, 15, 25, 0.75)),
-        url("./assets/fundo-escritorio.jpg");
-
+/* Camada de fundo com fade */
+.cenario-fundo {
+    position: absolute;
+    inset: 0;
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.cenario-fundo.ativo {
+    opacity: 1;
+}
+
+/* Garante que o conteúdo fique ACIMA do fundo */
+.informacoes,
+.personagem-area,
+.dialogo {
+    position: relative;
+    z-index: 1;
 }
 
 /* INFORMAÇÕES SUPERIORES */
@@ -177,7 +197,7 @@ section {
     font-family: "Goudy Bookletter 1911", serif;
     font-weight: 900;
     letter-spacing: 2px;
-    color: #f2b84b;
+    color: #503d19;
 }
 
 /* PERSONAGEM */
@@ -202,6 +222,23 @@ section {
     font-weight: 900;
     box-shadow: 0 0 35px rgba(242, 184, 75, 0.4);
     animation: aparecer 0.5s ease;
+    overflow: hidden; /* NOVO: garante que a imagem não saia do círculo */
+    border: 4px solid rgba(255, 255, 255, 0.2); /* NOVO: uma borda sutil para destacar */
+}
+
+/* NOVO: Estilo para a imagem dentro do círculo */
+.personagem img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Faz a imagem preencher o círculo sem distorcer */
+    object-position: center top; /* Foca no rosto da personagem */
+    border-radius: 50%;
+}
+
+.personagem.marina,
+.personagem.renata {
+    width: calc(150px + 1cm);
+    height: calc(150px + 1cm);
 }
 
 .personagem.marina {
@@ -215,7 +252,7 @@ section {
 }
 
 .personagem.narrador {
-    background: #f2b84b;
+    background: #caa96b;
 }
 
 /* CAIXA DE DIÁLOGO */
@@ -353,6 +390,12 @@ section {
         font-size: 48px;
     }
 
+    .personagem.marina,
+    .personagem.renata {
+        width: calc(110px + 1cm);
+        height: calc(110px + 1cm);
+    }
+
     .dialogo {
         padding: 18px;
     }
@@ -368,5 +411,126 @@ section {
 
     .informacoes {
         font-size: 9px;
+    }
+}
+
+/* Game Over */
+body.game-over .dialogo {
+    border-left-color: #f2b84b;
+}
+
+body.game-over .dialogo h2 {
+    color: #f2b84b;
+}
+
+body.game-over .personagem.narrador {
+    background: #060100;
+    box-shadow: 0 0 35px rgba(192, 178, 24, 0.5);
+}
+
+/* ============================
+   TELA DE GAME OVER
+============================ */
+
+#tela-game-over {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background:
+        radial-gradient(circle at center, rgba(60, 10, 10, 0.85), rgba(10, 5, 5, 0.98)),
+        url("./bg2.png");
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    padding: 30px;
+}
+
+.game-over-conteudo {
+    width: min(90%, 600px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    animation: aparecer 0.6s ease;
+}
+
+.game-over-icone {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background: #c0392b;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 65px;
+    font-weight: 900;
+    box-shadow: 0 0 45px rgba(192, 57, 43, 0.6);
+    animation: pulsar 2s ease-in-out infinite;
+}
+
+.game-over-titulo {
+    font-family: "Goudy Bookletter 1911", serif;
+    font-size: 52px;
+    font-weight: 900;
+    letter-spacing: 6px;
+    color: #e88ca7;
+    text-shadow: 0 0 25px rgba(192, 57, 43, 0.7);
+}
+
+.game-over-subtitulo {
+    font-family: "Goudy Bookletter 1911", serif;
+    font-size: 16px;
+    letter-spacing: 4px;
+    color: #caa96b;
+    text-transform: uppercase;
+}
+
+.game-over-texto {
+    font-family: "Goudy Bookletter 1911", serif;
+    font-size: 18px;
+    line-height: 1.7;
+    color: #e8e3d8;
+    background: rgba(0, 0, 0, 0.35);
+    padding: 20px 25px;
+    border-left: 5px solid #c0392b;
+    border-radius: 6px;
+}
+
+#tela-game-over .botao-principal {
+    margin-top: 10px;
+    background: #c0392b;
+}
+
+#tela-game-over .botao-principal:hover {
+    background: #e74c3c;
+    transform: scale(1.05);
+}
+
+@keyframes pulsar {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 45px rgba(192, 57, 43, 0.6);
+    }
+    50% {
+        transform: scale(1.06);
+        box-shadow: 0 0 65px rgba(192, 57, 43, 0.9);
+    }
+}
+
+/* Ajustes mobile */
+@media (max-width: 600px) {
+    .game-over-titulo {
+        font-size: 34px;
+        letter-spacing: 3px;
+    }
+    .game-over-icone {
+        width: 95px;
+        height: 95px;
+        font-size: 45px;
+    }
+    .game-over-texto {
+        font-size: 15px;
+        padding: 15px 18px;
     }
 }

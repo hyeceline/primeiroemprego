@@ -4,6 +4,7 @@
 
 let nomeJogador = "";
 let cenaAtual = 0;
+const diretorioImagensPersonagens = new URL(".", document.currentScript.src);
 
 let pontos = {
     comunicacao: 0,
@@ -11,9 +12,6 @@ let pontos = {
     equipe: 0,
     honestidade: 0
 };
-
-let escolhaAnterior = "";
-
 
 /* =================================
    TRANSIÇÃO
@@ -100,6 +98,7 @@ const cenas = [
         icone: "✦",
         classe: "narrador",
         local: "SEGUNDA-FEIRA — 08:00",
+        fundo: "./bg2.png",
 
         texto:
         "Era uma manhã de segunda-feira. Depois de semanas procurando uma oportunidade, {nome} finalmente havia conseguido seu primeiro emprego na Aurora Comunicação, uma agência de publicidade conhecida por seus projetos criativos. Nervoso, mas animado, {nome} atravessou a porta da empresa sem imaginar o que aquele dia reservaria.",
@@ -114,6 +113,7 @@ const cenas = [
         icone: "M",
         classe: "marina",
         local: "RECEPÇÃO",
+        fundo: "./bg2.png",
 
         texto:
         "Marina, responsável por orientar os novos funcionários, aproxima-se com uma pasta nas mãos. \"Oi! Você deve ser {nome}, certo? Seja bem-vindo! Hoje vamos começar com uma tarefa simples: ajudar a preparar uma apresentação para um cliente. Como prefere começar?\"",
@@ -124,21 +124,24 @@ const cenas = [
                 texto: "A) Pedir que Marina explique todos os detalhes.",
                 resultado:
                 "\"Claro! Não tenha vergonha de perguntar. É melhor esclarecer as dúvidas antes de começar\", responde Marina.",
-                pontos: { comunicacao: 2, honestidade: 1 }
+                pontos: { comunicacao: 2, honestidade: 1 },
+                correta: true
             },
 
             {
                 texto: "B) Aceitar a tarefa e tentar resolver sozinho.",
                 resultado:
                 "\"Gosto dessa disposição! Só não se esqueça de pedir ajuda se precisar\", comenta Marina.",
-                pontos: { iniciativa: 2 }
+                pontos: { iniciativa: 2 },
+                correta: false
             },
 
             {
                 texto: "C) Procurar um colega para fazer a tarefa em conjunto.",
                 resultado:
                 "\"Boa ideia! Trabalhar em equipe pode facilitar bastante as coisas\", diz Marina.",
-                pontos: { equipe: 2, comunicacao: 1 }
+                pontos: { equipe: 2, comunicacao: 1 },
+                correta: true
             }
 
         ]
@@ -150,6 +153,7 @@ const cenas = [
         icone: "R",
         classe: "renata",
         local: "SALA DE CRIAÇÃO",
+        fundo: "./bg2.png",
 
         texto:
         "Na sala de criação, {nome} conhece Renata, uma funcionária que trabalha na agência há alguns meses. Ela percebe que você está analisando os documentos da apresentação. \"Olha, acho que algumas informações estão faltando aqui. A gente precisa descobrir os dados corretos antes de enviar isso ao cliente. O que você acha que devemos fazer?\"",
@@ -160,21 +164,24 @@ const cenas = [
                 texto: "A) Pesquisar e conferir as informações antes de continuar.",
                 resultado:
                 "Renata concorda. \"Ótimo! Não podemos correr o risco de apresentar dados errados.\"",
-                pontos: { iniciativa: 1, honestidade: 2 }
+                pontos: { iniciativa: 1, honestidade: 2 },
+                correta: true
             },
 
             {
                 texto: "B) Perguntar a Marina onde encontrar os dados.",
                 resultado:
                 "Marina indica os arquivos corretos e agradece por você ter perguntado antes de tomar uma decisão.",
-                pontos: { comunicacao: 2, honestidade: 1 }
+                pontos: { comunicacao: 2, honestidade: 1 },
+                correta: true
             },
 
             {
                 texto: "C) Usar os dados disponíveis e deixar essa parte para depois.",
                 resultado:
                 "Renata fica um pouco preocupada. \"Espero que a gente consiga revisar isso a tempo...\"",
-                pontos: { iniciativa: 1 }
+                pontos: { iniciativa: 1 },
+                correta: false
             }
 
         ]
@@ -187,6 +194,7 @@ const cenas = [
         icone: "R",
         classe: "renata",
         local: "SALA DE REUNIÕES",
+        fundo: "./bg2.png",
 
         texto:
         "Pouco antes da apresentação, Renata percebe que uma parte importante do material está diferente do que foi combinado. Ela parece bastante nervosa. \"Acho que cometi um erro na organização dos slides. Não sei se vamos conseguir terminar a tempo...\" Como você reage?",
@@ -197,21 +205,24 @@ const cenas = [
                 texto: "A) Oferecer ajuda para corrigir os slides.",
                 resultado:
                 "Renata respira aliviada. \"Obrigada! Eu estava precisando de uma mão.\" Vocês conseguem reorganizar o material juntos.",
-                pontos: { equipe: 2, comunicacao: 1 }
+                pontos: { equipe: 2, comunicacao: 1 },
+                correta: true
             },
 
             {
                 texto: "B) Avisar Marina imediatamente e explicar o problema.",
                 resultado:
                 "Marina agradece por ter sido avisada. Juntos, vocês encontram uma solução antes da reunião.",
-                pontos: { comunicacao: 1, honestidade: 2 }
+                pontos: { comunicacao: 1, honestidade: 2 },
+                correta: true
             },
 
             {
                 texto: "C) Ignorar o problema e continuar com sua própria parte.",
                 resultado:
                 "Você continua trabalhando, mas percebe que Renata precisa resolver a situação sozinha.",
-                pontos: { iniciativa: 1 }
+                pontos: { iniciativa: 1 },
+                correta: false
             }
 
         ]
@@ -224,6 +235,7 @@ const cenas = [
         icone: "M",
         classe: "marina",
         local: "REUNIÃO COM O CLIENTE",
+        fundo: "./bg2.png",
 
         texto:
         "A apresentação está prestes a começar. Marina se aproxima e pergunta: \"{nome}, percebi que algumas partes do projeto ainda precisam de ajustes. Como você acha que devemos lidar com isso durante a reunião?\" É o momento de mostrar o que você aprendeu no seu primeiro dia.",
@@ -234,21 +246,24 @@ const cenas = [
                 texto: "A) Ser transparente e explicar o que ainda precisa ser ajustado.",
                 resultado:
                 "\"Essa é uma atitude profissional. É importante manter a confiança do cliente\", responde Marina.",
-                pontos: { honestidade: 2, comunicacao: 1 }
+                pontos: { honestidade: 2, comunicacao: 1 },
+                correta: true
             },
 
             {
                 texto: "B) Apresentar o trabalho mesmo com os problemas, sem comentar nada.",
                 resultado:
                 "Marina parece hesitante. \"Precisamos ter cuidado para não comprometer a confiança do cliente.\"",
-                pontos: { iniciativa: 1 }
+                pontos: { iniciativa: 1 },
+                correta: false
             },
 
             {
                 texto: "C) Pedir ajuda à equipe para revisar tudo antes da apresentação.",
                 resultado:
                 "\"Excelente! Uma equipe que se comunica consegue encontrar soluções melhores\", diz Marina.",
-                pontos: { equipe: 2, comunicacao: 1 }
+                pontos: { equipe: 2, comunicacao: 1 },
+                correta: true
             }
 
         ]
@@ -257,12 +272,14 @@ const cenas = [
 ];
 
 
-/* =================================
-   MOSTRAR CENA
-================================= */
+
 
 function mostrarCena() {
     const cena = cenas[cenaAtual];
+
+    const fundo = document.getElementById("fundoCena");
+    fundo.style.backgroundImage = `url("${cena.fundo}")`;
+    fundo.classList.add("ativo");
 
     document.getElementById("nomePersonagem").textContent =
         cena.personagem;
@@ -280,8 +297,27 @@ function mostrarCena() {
 
     personagem.className = "personagem " + cena.classe;
 
-    document.getElementById("iconePersonagem").textContent =
-        cena.icone;
+    const icone = document.getElementById("iconePersonagem");
+    const iconeTexto = document.getElementById("iconePersonagemTexto");
+    iconeTexto.textContent = cena.icone;
+    icone.onerror = function() {
+        console.error("Não foi possível carregar a imagem do personagem:", icone.src);
+        icone.style.display = "none";
+        iconeTexto.style.display = "block";
+    };
+
+    if (cena.classe === "marina") {
+        icone.src = new URL("Marina.jpg", diretorioImagensPersonagens).href;
+        icone.style.display = "block";
+        iconeTexto.style.display = "none";
+    } else if (cena.classe === "renata") {
+        icone.src = new URL("Renata.png", diretorioImagensPersonagens).href;
+        icone.style.display = "block";
+        iconeTexto.style.display = "none";
+    } else {
+        icone.style.display = "none";
+        iconeTexto.style.display = "block";
+    }
 
     const opcoes = document.getElementById("opcoes");
     const botaoContinuar = document.getElementById("botaoContinuar");
@@ -317,27 +353,23 @@ function selecionarOpcao(indice) {
     const cena = cenas[cenaAtual];
     const opcao = cena.opcoes[indice];
 
-    // Registra os pontos da escolha
+    // Se for resposta errada → Game Over
+    if (opcao.correta === false) {
+        mostrarGameOver(opcao);
+        return;
+    }
+
+    // Acertou: registra os pontos
     for (let atributo in opcao.pontos) {
         pontos[atributo] += opcao.pontos[atributo];
     }
 
-    escolhaAnterior = opcao.resultado;
-
-    // Mostra a consequência da decisão
-    document.getElementById("nomePersonagem").textContent =
-        "CONSEQUÊNCIA";
-
-    document.getElementById("texto").textContent =
-        escolhaAnterior;
-
+    // Mostra a consequência
+    document.getElementById("nomePersonagem").textContent = "CONSEQUÊNCIA";
+    document.getElementById("texto").textContent = opcao.resultado;
     document.getElementById("opcoes").innerHTML = "";
-
-    const botaoContinuar = document.getElementById("botaoContinuar");
-
-    botaoContinuar.classList.remove("escondido");
+    document.getElementById("botaoContinuar").classList.remove("escondido");
 }
-
 
 /* =================================
    AVANÇAR HISTÓRIA
@@ -375,7 +407,9 @@ function mostrarFinal() {
     document.getElementById("personagem").className =
         "personagem narrador";
 
-    document.getElementById("iconePersonagem").textContent = "✦";
+    const icone = document.getElementById("iconePersonagem");
+    icone.style.display = "none";
+    document.getElementById("iconePersonagemTexto").style.display = "block";
 
     document.getElementById("opcoes").innerHTML = "";
 
@@ -424,6 +458,23 @@ function mostrarFinal() {
 
     document.getElementById("opcoes").appendChild(botaoReiniciar);
 }
+/* =================================
+   GAME OVER
+================================= */
+
+function mostrarGameOver(opcao) {
+    document.body.classList.add("game-over");
+
+    // Define o texto do Game Over
+    document.getElementById("textoGameOver").textContent =
+        "Sua escolha não foi a mais adequada. " +
+        opcao.resultado + " " +
+        "Infelizmente, esse primeiro dia não terminou bem. " +
+        "Talvez a próxima tentativa seja diferente...";
+
+    // Usa a transição existente
+    trocarTela("tela-jogo", "tela-game-over");
+}
 
 
 /* =================================
@@ -442,11 +493,20 @@ function escreverTexto(texto) {
 ================================= */
 
 function reiniciarJogo() {
+    document.body.classList.remove("game-over");
 
+    // Esconde as telas do jogo e do game over
     document.getElementById("tela-jogo").style.display = "none";
+    document.getElementById("tela-game-over").style.display = "none";
     document.getElementById("tela-inicial").style.display = "flex";
 
     document.getElementById("nomeJogador").value = "";
+
+    const fundo = document.querySelector(".cenario-fundo");
+    if (fundo) {
+        fundo.classList.remove("ativo");
+        fundo.style.backgroundImage = "";
+    }
 
     cenaAtual = 0;
 

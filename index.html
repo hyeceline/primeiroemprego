@@ -71,16 +71,19 @@
 
         <div class="cenario">
 
+            <div id="fundoCena" class="cenario-fundo"></div>
+
             <div class="informacoes">
                 <span id="numeroCena">DIA 01</span>
                 <span id="localCena">AURORA COMUNICAÇÃO</span>
             </div>
 
             <div class="personagem-area">
-                <div id="personagem" class="personagem">
-                    <span id="iconePersonagem">✦</span>
-                </div>
-            </div>
+    <div id="personagem" class="personagem">
+        <span id="iconePersonagemTexto">✦</span>
+        <img id="iconePersonagem" src="" alt="Personagem" style="display: none;">
+    </div>
+</div>
 
             <div class="dialogo">
 
@@ -98,6 +101,27 @@
 
         </div>
 
+    </section>
+
+    <!-- GAME OVER -->
+    <section id="tela-game-over">
+        <div class="game-over-conteudo">
+
+            <div class="game-over-icone">✕</div>
+
+            <h1 class="game-over-titulo">GAME OVER</h1>
+
+            <p class="game-over-subtitulo">DIA 01 — ENCERRADO</p>
+
+            <p id="textoGameOver" class="game-over-texto">
+                Sua escolha não foi a mais adequada...
+            </p>
+
+            <button class="botao-principal" onclick="reiniciarJogo()">
+                TENTAR NOVAMENTE
+            </button>
+
+        </div>
     </section>
 
     <script src="main.js"></script>
